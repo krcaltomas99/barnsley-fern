@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState, useEffect} from 'react';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [dots, setDots] = useState([]);
+
+	console.log(Array.isArray(dots));
+
+	useEffect(() => {
+		const canvas = document.getElementById('fern');
+		let halfWidth = canvas.offsetWidth / 2;
+
+		let y = 0;
+		let x = 0;
+
+		setInterval(() => {
+			let nextX = 0.85 * x + 0.04 * y;
+			let nextY = -0.04 * x + 0.85 * y + 1.6;
+
+			x = nextX;
+			y = nextY;
+			const arr = {x, y};
+			setDots([...dots, arr]);
+		}, 1000);
+
+	}, []);
+
+	return (
+		<div id='fern' className="App">
+			{dots.map((item) => <div style={}></div>)}
+		</div>
+	);
 }
 
 export default App;
